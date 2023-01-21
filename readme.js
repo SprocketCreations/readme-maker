@@ -26,7 +26,7 @@ const makeTableOfContents = (sections) => {
  * @param {string} obj.installation Step by step explanation of how to install the project.
  * @param {string} obj.usage Proved instructions and examples on use.
  * @param {string} obj.license What license to add a badge for.
- * @param {string} obj.contribution Explanation on how to contribute to the problem.
+ * @param {string} obj.contributing Explanation on how to contribute to the problem.
  * @param {string} obj.tests Instructions on how to run any tests.
  * @param {string} obj.questions Contact information, such as github username and email.
  * @returns {string} a markdown readme string ready to be written to a file.
@@ -37,7 +37,7 @@ const makeReadme = ({
 	installation,
 	usage,
 	license,
-	contribution,
+	contributing: contributing,
 	tests,
 	questions }) => {
 	/** @type {string[]} The README string. Use `.push()` to add more text. */
@@ -51,7 +51,7 @@ const makeReadme = ({
 		Installation: isPresent(installation),
 		Usage: isPresent(usage),
 		License: isPresent(license),
-		Contribution: isPresent(contribution),
+		Contributing: isPresent(contributing),
 		Tests: isPresent(tests),
 		Questions: isPresent(questions),
 	};
@@ -92,9 +92,9 @@ const makeReadme = ({
 		readme.push(`## License\n\nThis project is licensed under ${license.displayName}\n\n`);
 	}
 
-	if (sections.Contribution) {
+	if (sections.Contributing) {
 		// Push the cedits.
-		readme.push(`## Contributing\n\n${contribution}\n\n`);
+		readme.push(`## Contributing\n\n${contributing}\n\n`);
 	}
 
 	if (sections.Tests) {

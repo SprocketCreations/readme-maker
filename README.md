@@ -11,8 +11,9 @@ Readme Maker is a CLI that uses prompts to allow the user to effortlessly create
 - [Description](#description)
 - [Installation](#installation)
 - [Usage](#usage)
+- [Demo](#demo)
 - [License](#license)
-- [Contribution](#contribution)
+- [Contributing](#contributing)
 - [Questions](#questions)
 
 
@@ -23,6 +24,11 @@ Run `git clone git@github.com:SprocketCreations/readme-maker.git` where you woul
 ## Usage
 
 Run `node index.js` and answer the prompts. Any prompts you leave blank will have their associated section omitted. If there are enough sections in the readme, a table of contents will be generated. Once done, you can find your readme file in the out folder.
+
+## Demo
+
+This section was added to the readme after it was generated using this very tool.
+[Google drive video showcasing that process.](https://drive.google.com/file/d/1WsAsiyBsjIJeQzAvt-_0nuhEeH56TVv4/view?usp=sharing)
 
 ## License
 
