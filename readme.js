@@ -1,5 +1,3 @@
-const licenses = require("./license-badges.js");
-
 /**
  * @param {object} sections The sections to add to the table of contents.
  * @returns {string} a markdown table of contents ready to be pasted into a .md file.
@@ -42,8 +40,11 @@ const makeReadme = ({
 	contribution,
 	tests,
 	questions }) => {
+	/** @type {string[]} The README string. Use `.push()` to add more text. */
+	const readme = [];
+	// Function used to map the presence of each of the sections.
+	const isPresent = section => section != "";
 	// Map of all the sections, and whether they are present.
-	const isPresent = section => section !== null;
 	const sections = {
 		Title: isPresent(title),
 		Description: isPresent(description),
@@ -55,41 +56,61 @@ const makeReadme = ({
 		Questions: isPresent(questions),
 	};
 
-	/** @type {string[]} The README string. Use `.push()` to add more text. */
-	const readme = [];
-	// Push the badge.
-	readme.push(`${licenses[license]}/n`);
+	// Add each section to the document, but only if the user actually subitted something.
+
 
 	// Push the title.
-	readme.push(`# ${title}\n\n`);
+	readme.push(`# ${sections.Title ? title : "Unnamed Project"}\n\n`);
 
-	// Push the description.
-	readme.push(`## Description\n\n${description}\n\n`);
+	if (sections.License) {
+		// Push the badge.
+		readme.push(`${license.badge}\n`);
+	}
 
-	// If the readme is long, add a table of contents.
-	readme.push(`## Table of Contents\n\n${makeTableOfContents(sections)}\n\n`);
+	if (sections.Description) {
+		// Push the description.
+		readme.push(`## Description\n\n${description}\n\n`);
+	}
 
-	// Push the installation instructions.
-	readme.push(`## Installation\n\n${installation}\n\n`);
+	if (Object.values(sections).reduce((a, b) => a + (b ? 1 : 0), 0) > 5) {
+		// If the readme is long, add a table of contents.
+		readme.push(`## Table of Contents\n\n${makeTableOfContents(sections)}\n\n`);
+	}
 
-	// Push the usage instructions.
-	readme.push(`## Usage\n\n${usage}\n\n`);
+	if (sections.Installation) {
+		// Push the installation instructions.
+		readme.push(`## Installation\n\n${installation}\n\n`);
+	}
 
-	// Push the lisence.
-	readme.push(`## License\n\n${licenses[license]}\n\n`);
+	if (sections.Usage) {
+		// Push the usage instructions.
+		readme.push(`## Usage\n\n${usage}\n\n`);
+	}
 
-	// Push the cedits.
-	readme.push(`## Credit\n\n${credit}\n\n`);
+	if (sections.License) {
+		// Push the lisence.
+		readme.push(`## License\n\nThis project is licensed under ${license.displayName}\n\n`);
+	}
 
-	// Push the test usage instructions.
-	readme.push(`## Tests\n\n${tests}\n\n`);
+	if (sections.Contribution) {
+		// Push the cedits.
+		readme.push(`## Contributing\n\n${contribution}\n\n`);
+	}
 
-	// Push the contact information.
-	readme.push(`## Contact\n\n${questions}\n\n`);
+	if (sections.Tests) {
+		// Push the test usage instructions.
+		readme.push(`## Tests\n\n${tests}\n\n`);
+	}
+
+	if (sections.Questions) {
+		// Push the contact information.
+		readme.push(`## Questions\n\n${questions}\n\n`);
+	}
 
 	// Return the joined README.
 	return readme.join("");
-};
+}
+
 
 module.exports = {
 	makeReadme,
