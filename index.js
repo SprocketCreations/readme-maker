@@ -44,7 +44,7 @@ inquirer.prompt([
 	},
 	{
 		type: "input",
-		name: "contribution",
+		name: "contributing",
 		message: "Please explain how people should contribute to your project.",
 	},
 	{
